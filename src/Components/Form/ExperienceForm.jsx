@@ -89,6 +89,7 @@ const ExperienceForm = (props) => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker", "DatePicker"]}>
               <DesktopDatePicker
+                sx={{ width: "100%" }}
                 label="Start Date"
                 value={startDate}
                 onChange={(newValue) => {
@@ -102,6 +103,7 @@ const ExperienceForm = (props) => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker", "DatePicker"]}>
               <DesktopDatePicker
+                sx={{ width: "100%" }}
                 label="End Date"
                 value={endDate}
                 onChange={(newValue) => setEndDate(newValue)}

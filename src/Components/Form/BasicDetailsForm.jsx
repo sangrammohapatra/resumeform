@@ -52,6 +52,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
     });
 
     console.log("Basic Details Form Data:", basicDetails);
+    console.log("Resume data", resumeData);
     onSubmit(basicDetails);
     setFlag(true);
   };
@@ -176,13 +177,24 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               Add Basic Details
             </Button>
           </Grid>
-          <Grid item md={6} xs={12} sm={6}>
+          <Grid
+            item
+            md={6}
+            xs={12}
+            sm={6}
+            sx={{paddingLeft:"100%",
+              border: "2px solid red",
+            }}
+          >
             <Button
-              className={Styles.formButton}
               type="submit"
               variant="contained"
               color="primary"
               onClick={handleFinish}
+              sx={{
+                
+                border: "2px solid black",
+              }}
             >
               Submit
             </Button>
@@ -203,7 +215,17 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
           <Grid item md={6} xs={12} sm={6}>
             {form1}
           </Grid>
-          <Grid item md={6} xs={12} sm={6} sx={{ border: "2px solid red" }}>
+          <Grid
+            item
+            md={6}
+            xs={12}
+            sm={6}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Card sx={{ maxWidth: "fit-content" }}>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">

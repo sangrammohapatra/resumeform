@@ -23,7 +23,7 @@ const EducationForm = (props) => {
   useEffect(() => {
     console.log(education);
   }, [flag, education]);
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, index) => {
     e.preventDefault();
     const Date1 = moment(startDate).format("DD/MMM/YYYY");
     const Date2 = moment(endDate).format("DD/MMM/YYYY");
@@ -36,7 +36,11 @@ const EducationForm = (props) => {
       website,
       marks,
     };
-    setEducation([...education, formData]);
+    if (!index) {
+      setEducation([...education, formData]);
+    } else {
+      setEducation([...education, education[index](formData)]);
+    }
     setInstituteName("");
     setLocation("");
     setDegree("");
@@ -45,7 +49,6 @@ const EducationForm = (props) => {
     setWebsite("");
     setMarks("");
     setFlag(false);
-    console.log(education);
   };
   const editDetailsHandler = (index) => {
     setInstituteName(education[index].instituteName);
@@ -102,6 +105,7 @@ const EducationForm = (props) => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker"]}>
               <DesktopDatePicker
+              sx={{ width: "100%" }}
                 label="Start Date"
                 value={startDate}
                 onChange={(newValue) => {
@@ -115,6 +119,7 @@ const EducationForm = (props) => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker"]}>
               <DesktopDatePicker
+                sx={{ width: "100%" }}
                 label="End Date"
                 value={endDate}
                 onChange={(newValue) => setEndDate(newValue)}
@@ -175,7 +180,18 @@ const EducationForm = (props) => {
           <Grid item md={6} xs={12} sm={6}>
             {form2}
           </Grid>
-          <Grid item md={6} xs={12} sm={6} sx={{ border: "2px solid red" }}>
+          <Grid
+            item
+            md={6}
+            xs={12}
+            sm={6}
+            sx={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+              flexWrap: "wrap",
+            }}
+          >
             {education.map((item, index) => {
               return (
                 <Grid item key={index} xs={12} sm={6} md={4}>
@@ -186,6 +202,12 @@ const EducationForm = (props) => {
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         Institute Name : {item.instituteName}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Degree : {item.degree}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Marks : {item.marks}
                       </Typography>
                     </CardContent>
                     <CardActions>
