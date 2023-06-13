@@ -1,0 +1,142 @@
+{
+  "body": {
+    "name": "The Great Lord Somaditya",
+    "designation": "Noob Junior Architech",
+    "description": "I am a Full Stack Developer , I have 3 years of experience in Full Stack Development.",
+    "links": [
+      {
+        "type": "github",
+        "link": "https://github.com/Somaditya-Bindhani"
+      },
+      {
+        "type": "linkedIn",
+        "link": "https://in.linkedin.com/in/somaditya-bindhani-163399210"
+      },
+      {
+        "type": "resume",
+        "link": "https://drive.google.com/file/d/1mUA_EZPJ9HrC32zGQ3W77I6bWYoMW5MI/view?usp=sharing"
+      },
+      {
+        "type": "leetcode",
+        "link": "https://leetcode.com/user1801C/"
+      },
+      {
+        "type": "geeksforgeeks",
+        "link": "https://auth.geeksforgeeks.org/user/somadityaa/practice/"
+      },
+      {
+        "type": "contacts",
+        "link": "https://auth.geeksforgeeks.org/user/somadityaa/practice/"
+      }
+    ]
+  },
+  "education": [
+    {
+      "instituteName": "Odisha University of technology and research",
+      "location": "Bhubaneswar,Odisha,India",
+      "degree": "Bachelor of Technology in Computer Science and Engineering",
+      "startDate": "2019-06-01",
+      "endDate": "2023-06-01",
+      "website": "https://www.cet.edu.in/",
+      "grade": "9.62/10 CGPA"
+    },
+    {
+      "instituteName": "Buxi Jagabandhu English Medium School",
+      "location": "Bhubaneswar,Odisha,India",
+      "degree": "Central Board of Secondary Education-Grade XII",
+      "startDate": "2017-06-01",
+      "endDate": "2019-06-01",
+      "website": "http://www.bjemschool.org/",
+      "grade": "94.2 %"
+    },
+    {
+      "instituteName": "Buxi Jagabandhu English Medium School",
+      "location": "Bhubaneswar,Odisha,India",
+      "degree": "Central Board of Secondary Education-Grade X",
+      "startDate": "2016-06-01",
+      "endDate": "2017-06-01",
+      "website": "http://www.bjemschool.org/",
+      "grade": "10/10 CGPA"
+    }
+  ],
+  "experience": [
+    {
+      "companyName": "Daffodil Health",
+      "location": "Bengaluru, Karnataka, India",
+      "role": "Full Stack Developer",
+      "startDate": "2021-12-01",
+      "endDate": "2022-03-01",
+      "content": [
+        "Configured and installed the backend with proactive solutions related to pagination,index-based searching, reducing the data flow, handling the APIs, and many more. ",
+        "Facilitated customization of the system by developing role-level infrastructure for the website. ",
+        "Contributed software engineering expertise in the backend development through the software lifecycle, from requirements definition through successful deployment."
+      ],
+      "website": "https://www.daffodilhealth.com/",
+      "skills": [
+        " Node.js ",
+        " React.js ",
+        " MongoDB ",
+        " Express.js ",
+        " Postman API ",
+        " Scrum "
+      ]
+    },
+    {
+      "companyName": "MADIEE Games",
+      "location": "Chennai, Tamil Nadu, India",
+      "role": "Game Developer",
+      "startDate": "2021-09-01",
+      "endDate": "2021-12-01",
+      "content": [
+        "Contributed to a game named 'Carbon Copy' developed using MERN stack and Web Sockets.",
+        "Got a hands-on experience with HTML Canvas, Game-based scoring patterns, timer, and delaying management.",
+        "I was engaged in the project as a Full-stack developer. 40% of my task was related to the backend,40% to the frontend, and the rest DevOps-related tasks ."
+      ],
+      "website": "https://www.madiee.com/",
+      "skills": [" Konva.js ", " Node.js ", " React.js ", " MongoDB "]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Classroom",
+      "content": [
+        "Polished my backend skills related to ExpressJS, MongoDB, and general backend architecture",
+        "Developed an end-to-end app providing real-time delivery tracking,management, and analytics of student records",
+        "Worked closely with the designs to optimise usability and implement frontend."
+      ],
+      "links": {
+        "github": "https://github.com/Somaditya-Bindhani/Classroom",
+        "website": "https://classroom-973ac.web.app/",
+        "images": ["cr1.jpeg", "cr2.jpeg", "cr3.jpeg", "cr4.jpeg", "cr5.jpeg"]
+      }
+    },
+    {
+      "title": "Bookshare",
+      "content": [
+        "The project focused on lending and borrowing books with internet as a medium.",
+        "Engaged mostly in the integration of frontend and backend, database handling, firebase authentication, and deployment.",
+        "Managed a team of 4 regarding task distribution and continuous integration and delivery."
+      ],
+      "links": {
+        "github": "https://github.com/MD-ARBAB-SAHID/HackNPitch_hackYou_BOOKSHARE",
+        "website": "https://book-share-9e402.web.app/",
+        "images": ["bs1.jpeg", "bs2.jpeg", "bs3.jpeg", "bs4.jpeg", "bs5.jpeg"]
+      }
+    },
+    {
+      "title": "Cyber Bank",
+      "content": [
+        "In my first Project learned the basics of HTML, CSS, and JS and got hands-on experience.",
+        "Got a brief introduction to how version control systems such as Git and GitHub function.",
+        "Gained a lot of knowledge on the basics of web development."
+      ],
+      "links": {
+        "website": "https://fathomless-stream-77208.herokuapp.com/",
+        "github": "https://github.com/Somaditya-Bindhani/tsf-banking-may21",
+        "images": ["cb1.png", "cb2.png", "cb3.png", "cb4.png"]
+      }
+    }
+  ],
+  "skills": [],
+  "languages": ["C++", "Java", "C", "Linux", "SQL", "JavaScript"]
+}

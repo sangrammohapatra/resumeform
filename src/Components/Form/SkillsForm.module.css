@@ -1,0 +1,13 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    margin: auto;
+    align-items: center;
+    padding: 30px;
+  }
+  
+  .formButton {
+    margin: 10px;
+    width: 30%;
+  }

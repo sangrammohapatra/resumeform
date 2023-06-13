@@ -1,0 +1,12 @@
+.mainDiv {
+  /* border: 2px solid red; */
+  margin: 5px;
+  margin-top: 15px;
+  padding: 5px;
+}
+.buttons {
+  /* border: 2px solid red; */
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
