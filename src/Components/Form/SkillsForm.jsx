@@ -119,7 +119,13 @@ const SkillsForm = (props) => {
             Add Skills
           </Button>
         </Grid>
-        <Grid item md={6} xs={12} sm={6}>
+        <Grid
+          item
+          md={6}
+          xs={12}
+          sm={6}
+          sx={{ display: "flex", justifyContent: "flex-end" }}
+        >
           <Button
             className={Styles.formButton}
             type="submit"

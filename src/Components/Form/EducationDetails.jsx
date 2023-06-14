@@ -105,7 +105,7 @@ const EducationForm = (props) => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker"]}>
               <DesktopDatePicker
-              sx={{ width: "100%" }}
+                sx={{ width: "100%" }}
                 label="Start Date"
                 value={startDate}
                 onChange={(newValue) => {
@@ -152,7 +152,16 @@ const EducationForm = (props) => {
             Add Education
           </Button>
         </Grid>
-        <Grid item md={6} xs={12} sm={6}>
+        <Grid
+          item
+          md={6}
+          xs={12}
+          sm={6}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
           <Button
             className={Styles.formButton}
             type="submit"

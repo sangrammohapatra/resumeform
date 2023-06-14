@@ -182,8 +182,10 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
             md={6}
             xs={12}
             sm={6}
-            sx={{paddingLeft:"100%",
-              border: "2px solid red",
+            sx={{
+              paddingLeft: "100%",
+              display: "flex",
+              justifyContent: "flex-end",
             }}
           >
             <Button
@@ -191,10 +193,6 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               variant="contained"
               color="primary"
               onClick={handleFinish}
-              sx={{
-                
-                border: "2px solid black",
-              }}
             >
               Submit
             </Button>
