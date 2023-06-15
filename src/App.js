@@ -1,9 +1,11 @@
 // import logo from "./logo.svg";
 import { useState } from "react";
 import "./App.css";
-import ButtonAppBar from "./Components/UI/Navbar";
+import NavBar from "./Components/UI/Navbar";
 import FormStepper from "./Components/UI/Stepper";
 import ThankYou from "./Components/UI/Thanks";
+import Footer from "./Components/UI/Footer";
+import { Box } from "@mui/material";
 function App() {
   const [showThanks, setShowThanks] = useState(false);
   const showThanksHandler = () => {
@@ -14,8 +16,8 @@ function App() {
   };
 
   return (
-    <>
-      <ButtonAppBar />
+    <Box display="flex" flexDirection="column">
+      <NavBar />
       <FormStepper showThankYou={showThanksHandler} />
       {showThanks && (
         <ThankYou
@@ -23,7 +25,8 @@ function App() {
           closeThankYou={closeThanksHandler}
         />
       )}
-    </>
+      <Footer />
+    </Box>
   );
 }
 

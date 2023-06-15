@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { TextField, Button, Grid, Box } from "@mui/material";
 import Styles from "./BasicDetails.module.css";
-import { Card, CardContent, CardActions, Typography } from "@mui/material";
+import {
+  Card,
+  IconButton,
+  CardContent,
+  CardActions,
+  Typography,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
   const [name, setName] = useState("");
@@ -68,6 +75,10 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
     setResumeLink(basicDetails.resumeLink);
     setLeetcodeLink(basicDetails.leetcodeLink);
     setGeeksforgeeksLink(basicDetails.geeksforgeeksLink);
+  };
+
+  const deleteDetailsHandler = () => {
+    setFlag(true);
   };
 
   const form1 = (
@@ -224,10 +235,25 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               alignItems: "center",
             }}
           >
-            <Card sx={{ maxWidth: "fit-content" }}>
+            <Card
+              variant="outlined"
+              sx={{ maxWidth: "fit-content", backgroundColor: "#f5f5f5" }}
+            >
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography
+                  sx={{ color: "#17354f" }}
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                >
                   Basic Details
+                  <IconButton
+                    aria-label="delete"
+                    // style={styles.deleteButton}
+                    onClick={() => deleteDetailsHandler()}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Name : {basicDetails.name}

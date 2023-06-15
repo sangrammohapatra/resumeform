@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Card,
   CardContent,
   CardActions,
   TextField,
+  IconButton,
   Button,
   Grid,
   Typography,
@@ -16,6 +17,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import moment from "moment";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const ExperienceForm = (props) => {
   const [companyName, setCompanyName] = useState("");
@@ -29,6 +31,13 @@ const ExperienceForm = (props) => {
   const [experience, setExperience] = useState([]);
   const [flag, setFlag] = useState(true);
   const [editIndex, setEditIndex] = useState(null);
+
+  useEffect(() => {
+    console.log(experience);
+    if (experience.length === 0) {
+      setFlag(true);
+    }
+  }, [flag, experience]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -81,6 +90,13 @@ const ExperienceForm = (props) => {
     setDescription(experience[index].description);
     setSkills(experience[index].skills);
     setEditIndex(index);
+  };
+
+  const deleteDetailsHandler = (index) => {
+    const updatedExperience = [...experience];
+    updatedExperience.splice(index, 1);
+    setExperience(updatedExperience);
+    console.log(experience.length);
   };
 
   const form3 = (
@@ -197,8 +213,8 @@ const ExperienceForm = (props) => {
         </Grid>
       </Grid>
       <Typography>
-        First click on Add Experience to add the experience to resume then click
-        on SUBMIT to proceed further.
+        *First click on Add Experience to add the experience to resume then
+        click on SUBMIT to proceed further.
       </Typography>
     </form>
   );
@@ -226,10 +242,25 @@ const ExperienceForm = (props) => {
             {experience.map((item, index) => {
               return (
                 <Grid item key={index} xs={12} sm={6} md={4}>
-                  <Card sx={{ maxWidth: "fit-content" }}>
+                  <Card
+                    variant="outlined"
+                    sx={{ maxWidth: "fit-content", backgroundColor: "#f5f5f5" }}
+                  >
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography
+                        sx={{ color: "#17354f" }}
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                      >
                         Experience Details {index + 1}
+                        <IconButton
+                          aria-label="delete"
+                          // style={styles.deleteButton}
+                          onClick={() => deleteDetailsHandler()}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         Company Name : {item.companyName}

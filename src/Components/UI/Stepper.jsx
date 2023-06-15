@@ -19,11 +19,11 @@ const steps = [
 const FormStepper = (props) => {
   const [activeStep, setActiveStep] = useState(0);
   const [resumeData, setResumeData] = useState();
-  
+
   useEffect(() => {
     console.log("Data", resumeData);
   }, [resumeData]);
-  
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };

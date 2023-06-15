@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Card,
   CardActions,
   CardContent,
+  IconButton,
   TextField,
   Button,
   Grid,
 } from "@mui/material";
 import Styles from "./ProjectsForm.module.css";
 import Typography from "@mui/material/Typography";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const ProjectForm = (props) => {
   const [projectTitle, setProjectTitle] = useState("");
@@ -20,6 +22,13 @@ const ProjectForm = (props) => {
   const [projects, setProjects] = useState([]);
   const [flag, setFlag] = useState(true);
   const [editIndex, setEditIndex] = useState(null);
+
+  useEffect(() => {
+    console.log(projects);
+    if (projects.length === 0) {
+      setFlag(true);
+    }
+  }, [flag, projects]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,6 +71,13 @@ const ProjectForm = (props) => {
     setDriveLinks(projects[index].driveLinks);
     setDeployedLink(projects[index].deployedLink);
     setEditIndex(index);
+  };
+
+  const deleteDetailsHandler = (index) => {
+    const updatedProject = [...projects];
+    updatedProject.splice(index, 1);
+    setProjects(updatedProject);
+    console.log(projects.length);
   };
 
   const handleProjectTitleChange = (e) => {
@@ -167,7 +183,7 @@ const ProjectForm = (props) => {
         </Grid>
       </Box>
       <Typography variant="p">
-        First click on ADD PROJECT to add the project to resume then click on
+        *First click on ADD PROJECT to add the project to resume then click on
         SUBMIT to proceed further.
       </Typography>
     </form>
@@ -195,11 +211,30 @@ const ProjectForm = (props) => {
           >
             {projects.map((item, index) => {
               return (
-                <Grid item key={index} xs={12} sm={6} md={4}>
-                  <Card sx={{ maxWidth: "fit-content" }}>
+                <Grid
+                  item
+                  key={index}
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  sx={{ margin: "15px" }}
+                >
+                  <Card sx={{ backgroundColor: "#f5f5f5" }} variant="outlined">
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography
+                        sx={{ color: "#17354f" }}
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                      >
                         Experience Details {index + 1}
+                        <IconButton
+                          aria-label="delete"
+                          // style={styles.deleteButton}
+                          onClick={() => deleteDetailsHandler()}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         Project Title : {item.projectTitle}

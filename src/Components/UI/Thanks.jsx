@@ -1,5 +1,5 @@
 import { Modal } from "@mui/material";
-import Styles from "./Thanks.module.css"
+import Styles from "./Thanks.module.css";
 
 const ThankYou = (props) => {
   return (

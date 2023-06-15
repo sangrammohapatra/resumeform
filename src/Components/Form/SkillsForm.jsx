@@ -53,7 +53,6 @@ const SkillsForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setFlag(false);
   };
 
@@ -149,10 +148,15 @@ const SkillsForm = (props) => {
           <Grid item md={6} xs={12} sm={6}>
             {form3}
           </Grid>
-          <Grid item md={6} xs={12} sm={6} sx={{ border: "2px solid red" }}>
-            <Card sx={{ maxWidth: "fit-content" }}>
+          <Grid item md={6} xs={12} sm={6}>
+            <Card variant="outlined" sx={{ backgroundColor: "#f5f5f5" }}>
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography
+                  sx={{ color: "#17354f" }}
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                >
                   Skills
                 </Typography>
                 <List>

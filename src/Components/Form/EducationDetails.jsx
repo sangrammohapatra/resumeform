@@ -8,7 +8,14 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import moment from "moment";
-import { Card, CardContent, CardActions, Typography } from "@mui/material";
+import {
+  Card,
+  IconButton,
+  CardContent,
+  CardActions,
+  Typography,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const EducationForm = (props) => {
   const [instituteName, setInstituteName] = useState("");
@@ -24,6 +31,9 @@ const EducationForm = (props) => {
 
   useEffect(() => {
     console.log(education);
+    if (education.length === 0) {
+      setFlag(true);
+    }
   }, [flag, education]);
   const handleSubmit = (e, index) => {
     e.preventDefault();
@@ -74,6 +84,14 @@ const EducationForm = (props) => {
     props.onSubmit(education);
     setFlag(true);
   };
+
+  const deleteDetailsHandler = (index) => {
+    const updatedEducation = [...education];
+    updatedEducation.splice(index, 1);
+    setEducation(updatedEducation);
+    console.log(education.length);
+  };
+
   const form2 = (
     <form className={Styles.formContainer} onSubmit={handleSubmit}>
       <Grid container spacing={2}>
@@ -182,8 +200,8 @@ const EducationForm = (props) => {
       </Grid>
 
       <Typography>
-        First click on Add Education to add the education details to resume then
-        click on SUBMIT to proceed further.
+        *First click on Add Education to add the education details to resume
+        then click on SUBMIT to proceed further.
       </Typography>
     </form>
   );
@@ -211,10 +229,25 @@ const EducationForm = (props) => {
             {education.map((item, index) => {
               return (
                 <Grid item key={index} xs={12} sm={6} md={4}>
-                  <Card sx={{ maxWidth: "fit-content" }}>
+                  <Card
+                    variant="outlined"
+                    sx={{ maxWidth: "fit-content", backgroundColor: "#f5f5f5" }}
+                  >
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography
+                        sx={{ color: "#17354f" }}
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                      >
                         Education Details {index + 1}
+                        <IconButton
+                          aria-label="delete"
+                          // style={styles.deleteButton}
+                          onClick={() => deleteDetailsHandler()}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         Institute Name : {item.instituteName}

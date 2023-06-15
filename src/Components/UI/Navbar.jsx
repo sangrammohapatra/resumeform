@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import logoImg from "../../Assets/HatchfulExport-All/2222.png";
 import Style from "./Navbar.module.css";
 
-export default function ButtonAppBar() {
+export default function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#245279" }}>
