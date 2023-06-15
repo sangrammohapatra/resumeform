@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { TextField, Button, Grid } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  TextField,
+  Button,
+  Grid,
+} from "@mui/material";
 import Styles from "./ProjectsForm.module.css";
 import Typography from "@mui/material/Typography";
 
@@ -10,6 +18,8 @@ const ProjectForm = (props) => {
   const [deployedLink, setDeployedLink] = useState("");
   const [driveLinks, setDriveLinks] = useState("");
   const [projects, setProjects] = useState([]);
+  const [flag, setFlag] = useState(true);
+  const [editIndex, setEditIndex] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,13 +30,21 @@ const ProjectForm = (props) => {
       deployedLink,
       driveLinks,
     };
-    setProjects([...projects, formData]);
-
+    if (editIndex !== null) {
+      const updatedEducation = [...projects];
+      updatedEducation[editIndex] = formData;
+      setProjects(updatedEducation);
+      setEditIndex(null);
+    } else {
+      setProjects([...projects, formData]);
+    }
     setProjectTitle("");
     setProjectDescription("");
     setGithubLink("");
     setDeployedLink("");
     setDriveLinks("");
+
+    setFlag(false);
   };
   const handleFinish = () => {
     props.setResumeData({
@@ -34,8 +52,18 @@ const ProjectForm = (props) => {
       projects: projects,
     });
     console.log("Project Form Data:", projects);
-    props.onSubmit(props.resumeData);
+    props.onSubmit(projects);
   };
+
+  const editDetailsHandler = (index) => {
+    setProjectTitle(projects[index].projectTitle);
+    setProjectDescription(projects[index].projectDescription);
+    setGithubLink(projects[index].githubLink);
+    setDriveLinks(projects[index].driveLinks);
+    setDeployedLink(projects[index].deployedLink);
+    setEditIndex(index);
+  };
+
   const handleProjectTitleChange = (e) => {
     setProjectTitle(e.target.value);
   };
@@ -56,91 +84,154 @@ const ProjectForm = (props) => {
     setDriveLinks(e.target.value);
   };
 
-  return (
+  const form4 = (
     <form className={Styles.formContainer} onSubmit={handleSubmit}>
-      <Grid container spacing={2}>
-        <Grid item md={6} xs={12} sm={6}>
-          <TextField
-            required
-            fullWidth
-            label="Project Title"
-            variant="outlined"
-            value={projectTitle}
-            onChange={handleProjectTitleChange}
-          />
-        </Grid>
-        <Grid item md={6} xs={12} sm={6}>
-          <TextField
-            required
-            fullWidth
-            label="Project Description"
-            variant="outlined"
-            multiline
-            value={projectDescription}
-            onChange={handleProjectDescriptionChange}
-          />
-        </Grid>
-        <Grid item md={6} xs={12} sm={6}>
-          <TextField
-            required
-            fullWidth
-            label="Github Link"
-            variant="outlined"
-            value={githubLink}
-            onChange={handleGithubLinkChange}
-          />
-        </Grid>
-        <Grid item md={6} xs={12} sm={6}>
-          <TextField
-            required
-            fullWidth
-            label="Deployed Project Link"
-            variant="outlined"
-            value={deployedLink}
-            onChange={handleDeployedLinkChange}
-          />
-        </Grid>
-        <Grid item md={6} xs={12} sm={6}>
-          <TextField
-            fullWidth
-            label="Drive Links (separated by commas)"
-            variant="outlined"
-            value={driveLinks}
-            onChange={handleDriveLinksChange}
-          />
-        </Grid>
-        <Grid item md={6} xs={12} sm={6}></Grid>
-        <Grid item md={6} xs={12} sm={6}>
-          <Button type="submit" variant="outlined" color="primary">
-            Add Project
-          </Button>
-        </Grid>
-        <Grid
-          item
-          md={6}
-          xs={12}
-          sm={6}
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-        >
-          <Button
-            className={Styles.formButton}
-            type="submit"
-            variant="contained"
-            color="primary"
-            onClick={handleFinish}
+      <Box sx={{ p: 2 }}>
+        <Grid container spacing={2}>
+          <Grid item md={6} xs={12} sm={6}>
+            <TextField
+              required
+              fullWidth
+              label="Project Title"
+              variant="outlined"
+              value={projectTitle}
+              onChange={handleProjectTitleChange}
+            />
+          </Grid>
+          <Grid item md={6} xs={12} sm={6}>
+            <TextField
+              required
+              fullWidth
+              label="Project Description"
+              variant="outlined"
+              multiline
+              value={projectDescription}
+              onChange={handleProjectDescriptionChange}
+            />
+          </Grid>
+          <Grid item md={6} xs={12} sm={6}>
+            <TextField
+              required
+              fullWidth
+              label="Github Link"
+              variant="outlined"
+              value={githubLink}
+              onChange={handleGithubLinkChange}
+            />
+          </Grid>
+          <Grid item md={6} xs={12} sm={6}>
+            <TextField
+              required
+              fullWidth
+              label="Deployed Project Link"
+              variant="outlined"
+              value={deployedLink}
+              onChange={handleDeployedLinkChange}
+            />
+          </Grid>
+          <Grid item md={6} xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Drive Links (separated by commas)"
+              variant="outlined"
+              value={driveLinks}
+              onChange={handleDriveLinksChange}
+            />
+          </Grid>
+          <Grid item md={6} xs={12} sm={6}></Grid>
+          <Grid item md={6} xs={12} sm={6}>
+            <Button type="submit" variant="outlined" color="primary">
+              Add Project
+            </Button>
+          </Grid>
+          <Grid
+            item
+            md={6}
+            xs={12}
+            sm={6}
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
           >
-            Submit
-          </Button>
+            <Button
+              className={Styles.formButton}
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={handleFinish}
+            >
+              Submit
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
       <Typography variant="p">
         First click on ADD PROJECT to add the project to resume then click on
         SUBMIT to proceed further.
       </Typography>
     </form>
+  );
+  return (
+    <Box>
+      {flag ? (
+        <>{form4}</>
+      ) : (
+        <Grid container spacing={2}>
+          <Grid item md={6} xs={12} sm={6}>
+            {form4}
+          </Grid>
+          <Grid
+            item
+            md={6}
+            xs={12}
+            sm={6}
+            sx={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            {projects.map((item, index) => {
+              return (
+                <Grid item key={index} xs={12} sm={6} md={4}>
+                  <Card sx={{ maxWidth: "fit-content" }}>
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        Experience Details {index + 1}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Project Title : {item.projectTitle}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Project Description : {item.projectDescription}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Github Link : {item.githubLink}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Drive Links : {item.driveLinks}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button
+                        size="small"
+                        onClick={() => {
+                          editDetailsHandler(index);
+                        }}
+                      >
+                        Edit
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Grid>
+      )}
+    </Box>
   );
 };
 

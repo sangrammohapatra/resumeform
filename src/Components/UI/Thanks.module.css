@@ -1,5 +1,4 @@
 .thankYouContainer {
-  border: 2px solid red;
   width: 500px;
   height: auto;
   margin: auto;
@@ -12,7 +11,7 @@
   border-radius: 15px;
   padding: 20px;
   animation: popUp 1s;
-  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 @keyframes popUp {

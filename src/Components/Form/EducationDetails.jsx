@@ -20,6 +20,8 @@ const EducationForm = (props) => {
   const [marks, setMarks] = useState("");
   const [education, setEducation] = useState([]);
   const [flag, setFlag] = useState(true);
+  const [editIndex, setEditIndex] = useState(null);
+
   useEffect(() => {
     console.log(education);
   }, [flag, education]);
@@ -36,10 +38,13 @@ const EducationForm = (props) => {
       website,
       marks,
     };
-    if (!index) {
-      setEducation([...education, formData]);
+    if (editIndex !== null) {
+      const updatedEducation = [...education];
+      updatedEducation[editIndex] = formData;
+      setEducation(updatedEducation);
+      setEditIndex(null);
     } else {
-      setEducation([...education, education[index](formData)]);
+      setEducation([...education, formData]);
     }
     setInstituteName("");
     setLocation("");
@@ -58,6 +63,7 @@ const EducationForm = (props) => {
     setEndDate(education[index].endDate);
     setWebsite(education[index].website);
     setMarks(education[index].marks);
+    setEditIndex(index);
   };
   const handleFinish = () => {
     props.setResumeData({
@@ -142,6 +148,7 @@ const EducationForm = (props) => {
             fullWidth
             label="Marks"
             variant="outlined"
+            type="number"
             value={marks}
             onChange={(e) => setMarks(e.target.value)}
           />

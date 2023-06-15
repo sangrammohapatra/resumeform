@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { TextField, Button, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardActions,
+  TextField,
+  Button,
+  Grid,
+  Typography,
+} from "@mui/material";
 import Styles from "./ExperienceForm.module.css";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -18,6 +27,8 @@ const ExperienceForm = (props) => {
   const [description, setDescription] = useState("");
   const [skills, setSkills] = useState("");
   const [experience, setExperience] = useState([]);
+  const [flag, setFlag] = useState(true);
+  const [editIndex, setEditIndex] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,8 +44,14 @@ const ExperienceForm = (props) => {
       description,
       skills,
     };
-    setExperience([...experience, formData]);
-
+    if (editIndex !== null) {
+      const updatedEducation = [...experience];
+      updatedEducation[editIndex] = formData;
+      setExperience(updatedEducation);
+      setEditIndex(null);
+    } else {
+      setExperience([...experience, formData]);
+    }
     setCompanyName("");
     setLocation("");
     setRole("");
@@ -43,6 +60,7 @@ const ExperienceForm = (props) => {
     setWebsite("");
     setDescription("");
     setSkills("");
+    setFlag(false);
   };
   const handleFinish = () => {
     props.setResumeData({
@@ -52,7 +70,20 @@ const ExperienceForm = (props) => {
     console.log("Experience Form Data:", experience);
     props.onSubmit(experience);
   };
-  return (
+
+  const editDetailsHandler = (index) => {
+    setCompanyName(experience[index].companyName);
+    setLocation(experience[index].location);
+    setRole(experience[index].role);
+    setStartDate(experience[index].startDate);
+    setEndDate(experience[index].endDate);
+    setWebsite(experience[index].website);
+    setDescription(experience[index].description);
+    setSkills(experience[index].skills);
+    setEditIndex(index);
+  };
+
+  const form3 = (
     <form className={Styles.formContainer} onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item md={6} xs={12} sm={6}>
@@ -170,6 +201,64 @@ const ExperienceForm = (props) => {
         on SUBMIT to proceed further.
       </Typography>
     </form>
+  );
+  return (
+    <Box>
+      {flag ? (
+        <>{form3}</>
+      ) : (
+        <Grid container spacing={2}>
+          <Grid item md={6} xs={12} sm={6}>
+            {form3}
+          </Grid>
+          <Grid
+            item
+            md={6}
+            xs={12}
+            sm={6}
+            sx={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            {experience.map((item, index) => {
+              return (
+                <Grid item key={index} xs={12} sm={6} md={4}>
+                  <Card sx={{ maxWidth: "fit-content" }}>
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        Experience Details {index + 1}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Company Name : {item.companyName}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Location : {item.location}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Skills : {item.skills}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button
+                        size="small"
+                        onClick={() => {
+                          editDetailsHandler(index);
+                        }}
+                      >
+                        Edit
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Grid>
+      )}
+    </Box>
   );
 };
 
