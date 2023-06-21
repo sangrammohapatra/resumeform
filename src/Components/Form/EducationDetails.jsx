@@ -6,15 +6,13 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ArrowDropDown";
 import dayjs from "dayjs";
 import moment from "moment";
-import {
-  Card,
-  IconButton,
-  CardContent,
-  CardActions,
-  Typography,
-} from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const EducationForm = (props) => {
@@ -29,12 +27,19 @@ const EducationForm = (props) => {
   const [flag, setFlag] = useState(true);
   const [editIndex, setEditIndex] = useState(null);
 
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   useEffect(() => {
     console.log(education);
     if (education.length === 0) {
       setFlag(true);
     }
   }, [flag, education]);
+
   const handleSubmit = (e, index) => {
     e.preventDefault();
     const Date1 = moment(startDate).format("DD/MMM/YYYY");
@@ -48,6 +53,7 @@ const EducationForm = (props) => {
       website,
       marks,
     };
+
     if (editIndex !== null) {
       const updatedEducation = [...education];
       updatedEducation[editIndex] = formData;
@@ -56,6 +62,7 @@ const EducationForm = (props) => {
     } else {
       setEducation([...education, formData]);
     }
+
     setInstituteName("");
     setLocation("");
     setDegree("");
@@ -65,6 +72,7 @@ const EducationForm = (props) => {
     setMarks("");
     setFlag(false);
   };
+
   const editDetailsHandler = (index) => {
     setInstituteName(education[index].instituteName);
     setLocation(education[index].location);
@@ -75,6 +83,7 @@ const EducationForm = (props) => {
     setMarks(education[index].marks);
     setEditIndex(index);
   };
+
   const handleFinish = () => {
     props.setResumeData({
       ...props.resumeData,
@@ -211,55 +220,42 @@ const EducationForm = (props) => {
         <>{form2}</>
       ) : (
         <Grid container spacing={2}>
-          <Grid item md={6} xs={12} sm={6}>
+          <Grid item md={7} xs={12} sm={6}>
             {form2}
           </Grid>
           <Grid
             item
-            md={6}
+            md={5}
             xs={12}
             sm={6}
             sx={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              flexWrap: "wrap",
+              marginTop: "25px",
             }}
           >
-            {education.map((item, index) => {
-              return (
-                <Grid item key={index} xs={12} sm={6} md={4}>
-                  <Card
-                    variant="outlined"
-                    sx={{ maxWidth: "fit-content", backgroundColor: "#f5f5f5" }}
+            <div className={Styles.accordion}>
+              {education.map((item, index) => {
+                return (
+                  <Accordion
+                    expanded={expanded === `panel${index}`}
+                    onChange={handleChange(`panel${index}`)}
                   >
-                    <CardContent>
-                      <Typography
-                        sx={{ color: "#17354f" }}
-                        gutterBottom
-                        variant="h5"
-                        component="div"
-                      >
-                        Education Details {index + 1}
-                        <IconButton
-                          aria-label="delete"
-                          // style={styles.deleteButton}
-                          onClick={() => deleteDetailsHandler()}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel3bh-content"
+                      id="panel3bh-header"
+                    >
+                      <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                        {`${item.degree} Details`}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Institute Name : {item.instituteName}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Degree : {item.degree}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Marks : {item.marks}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {Object.keys(item).map((key, index) => (
+                        <Typography variant="body2" color="black" key={index}>
+                          {`${key.toUpperCase()} : ${item[key]}`}
+                        </Typography>
+                      ))}
+                    </AccordionDetails>
+                    <div className={Styles.buttonContainer}>
                       <Button
                         size="small"
                         onClick={() => {
@@ -268,11 +264,18 @@ const EducationForm = (props) => {
                       >
                         Edit
                       </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              );
-            })}
+                      <IconButton
+                        aria-label="delete"
+                        // style={styles.deleteButton}
+                        onClick={() => deleteDetailsHandler()}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </div>
+                  </Accordion>
+                );
+              })}{" "}
+            </div>
           </Grid>
         </Grid>
       )}

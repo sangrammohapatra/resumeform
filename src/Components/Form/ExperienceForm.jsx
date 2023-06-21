@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Card,
-  CardContent,
-  CardActions,
   TextField,
   IconButton,
   Button,
@@ -15,6 +12,10 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ArrowDropDown";
 import dayjs from "dayjs";
 import moment from "moment";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -32,6 +33,12 @@ const ExperienceForm = (props) => {
   const [flag, setFlag] = useState(true);
   const [editIndex, setEditIndex] = useState(null);
 
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   useEffect(() => {
     console.log(experience);
     if (experience.length === 0) {
@@ -43,6 +50,7 @@ const ExperienceForm = (props) => {
     e.preventDefault();
     const Date1 = moment(startDate).format("DD/MMM/YYYY");
     const Date2 = moment(endDate).format("DD/MMM/YYYY");
+
     const formData = {
       companyName,
       location,
@@ -224,55 +232,42 @@ const ExperienceForm = (props) => {
         <>{form3}</>
       ) : (
         <Grid container spacing={2}>
-          <Grid item md={6} xs={12} sm={6}>
+          <Grid item md={7} xs={12} sm={6}>
             {form3}
           </Grid>
           <Grid
             item
-            md={6}
+            md={5}
             xs={12}
             sm={6}
             sx={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              flexWrap: "wrap",
+              marginTop: "30px",
             }}
           >
-            {experience.map((item, index) => {
-              return (
-                <Grid item key={index} xs={12} sm={6} md={4}>
-                  <Card
-                    variant="outlined"
-                    sx={{ maxWidth: "fit-content", backgroundColor: "#f5f5f5" }}
+            <div className={Styles.accordion}>
+              {experience.map((item, index) => {
+                return (
+                  <Accordion
+                    expanded={expanded === `panel${index}`}
+                    onChange={handleChange(`panel${index}`)}
                   >
-                    <CardContent>
-                      <Typography
-                        sx={{ color: "#17354f" }}
-                        gutterBottom
-                        variant="h5"
-                        component="div"
-                      >
-                        Experience Details {index + 1}
-                        <IconButton
-                          aria-label="delete"
-                          // style={styles.deleteButton}
-                          onClick={() => deleteDetailsHandler()}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel3bh-content"
+                      id="panel3bh-header"
+                    >
+                      <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                        {`${item.companyName} Details`}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Company Name : {item.companyName}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Location : {item.location}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Skills : {item.skills}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {Object.keys(item).map((key, index) => (
+                        <Typography variant="body2" color="black" key={index}>
+                          {`${key.toUpperCase()} : ${item[key]}`}
+                        </Typography>
+                      ))}
+                    </AccordionDetails>
+                    <div className={Styles.buttonContainer}>
                       <Button
                         size="small"
                         onClick={() => {
@@ -281,11 +276,18 @@ const ExperienceForm = (props) => {
                       >
                         Edit
                       </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              );
-            })}
+                      <IconButton
+                        aria-label="delete"
+                        // style={styles.deleteButton}
+                        onClick={() => deleteDetailsHandler()}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </div>
+                  </Accordion>
+                );
+              })}{" "}
+            </div>
           </Grid>
         </Grid>
       )}

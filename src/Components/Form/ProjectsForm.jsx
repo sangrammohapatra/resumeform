@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  IconButton,
-  TextField,
-  Button,
-  Grid,
-} from "@mui/material";
+import { Box, IconButton, TextField, Button, Grid } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ArrowDropDown";
 import Styles from "./ProjectsForm.module.css";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -22,6 +17,12 @@ const ProjectForm = (props) => {
   const [projects, setProjects] = useState([]);
   const [flag, setFlag] = useState(true);
   const [editIndex, setEditIndex] = useState(null);
+
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
   useEffect(() => {
     console.log(projects);
@@ -172,7 +173,7 @@ const ProjectForm = (props) => {
           >
             <Button
               className={Styles.formButton}
-              type="submit"
+    
               variant="contained"
               color="primary"
               onClick={handleFinish}
@@ -194,62 +195,42 @@ const ProjectForm = (props) => {
         <>{form4}</>
       ) : (
         <Grid container spacing={2}>
-          <Grid item md={6} xs={12} sm={6}>
+          <Grid item md={7} xs={12} sm={6}>
             {form4}
           </Grid>
           <Grid
             item
-            md={6}
+            md={5}
             xs={12}
             sm={6}
             sx={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              flexWrap: "wrap",
+              marginTop: "30px",
             }}
           >
-            {projects.map((item, index) => {
-              return (
-                <Grid
-                  item
-                  key={index}
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  sx={{ margin: "15px" }}
-                >
-                  <Card sx={{ backgroundColor: "#f5f5f5" }} variant="outlined">
-                    <CardContent>
-                      <Typography
-                        sx={{ color: "#17354f" }}
-                        gutterBottom
-                        variant="h5"
-                        component="div"
-                      >
-                        Experience Details {index + 1}
-                        <IconButton
-                          aria-label="delete"
-                          // style={styles.deleteButton}
-                          onClick={() => deleteDetailsHandler()}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
+            <div className={Styles.accordion}>
+              {projects.map((item, index) => {
+                return (
+                  <Accordion
+                    expanded={expanded === `panel${index}`}
+                    onChange={handleChange(`panel${index}`)}
+                  >
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel3bh-content"
+                      id="panel3bh-header"
+                    >
+                      <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                        {`${item.projectTitle} Details`}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Project Title : {item.projectTitle}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Project Description : {item.projectDescription}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Github Link : {item.githubLink}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Drive Links : {item.driveLinks}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {Object.keys(item).map((key, index) => (
+                        <Typography variant="body2" color="black" key={index}>
+                          {`${key.toUpperCase()} : ${item[key]}`}
+                        </Typography>
+                      ))}
+                    </AccordionDetails>
+                    <div className={Styles.buttonContainer}>
                       <Button
                         size="small"
                         onClick={() => {
@@ -258,11 +239,18 @@ const ProjectForm = (props) => {
                       >
                         Edit
                       </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              );
-            })}
+                      <IconButton
+                        aria-label="delete"
+                        // style={styles.deleteButton}
+                        onClick={() => deleteDetailsHandler()}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </div>
+                  </Accordion>
+                );
+              })}{" "}
+            </div>
           </Grid>
         </Grid>
       )}

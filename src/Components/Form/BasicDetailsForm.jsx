@@ -199,12 +199,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               justifyContent: "flex-end",
             }}
           >
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              onClick={handleFinish}
-            >
+            <Button variant="contained" color="primary" onClick={handleFinish}>
               Submit
             </Button>
           </Grid>
@@ -221,12 +216,12 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
         <>{form1}</>
       ) : (
         <Grid container spacing={2}>
-          <Grid item md={6} xs={12} sm={6}>
+          <Grid item md={7} xs={12} sm={6}>
             {form1}
           </Grid>
           <Grid
             item
-            md={6}
+            md={5}
             xs={12}
             sm={6}
             sx={{
@@ -247,34 +242,34 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
                   component="div"
                 >
                   Basic Details
-                  <IconButton
-                    aria-label="delete"
-                    // style={styles.deleteButton}
-                    onClick={() => deleteDetailsHandler()}
+                </Typography>
+                {Object.keys(basicDetails).map((key, index) => (
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    key={index}
                   >
-                    <DeleteIcon />
-                  </IconButton>
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Name : {basicDetails.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Email : {basicDetails.email}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Phone : {basicDetails.phone}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Designation : {basicDetails.designation}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Description : {basicDetails.description}
-                </Typography>
+                    {`${key.toUpperCase()} : ${basicDetails[key]}`}
+                  </Typography>
+                ))}
               </CardContent>
-              <CardActions>
+              <CardActions
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  margin: "5px",
+                }}
+              >
                 <Button size="small" onClick={editDetailsHandler}>
                   Edit
                 </Button>
+                <IconButton
+                  aria-label="delete"
+                  // style={styles.deleteButton}
+                  onClick={() => deleteDetailsHandler()}
+                >
+                  <DeleteIcon />
+                </IconButton>
               </CardActions>
             </Card>
           </Grid>

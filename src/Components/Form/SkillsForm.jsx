@@ -145,12 +145,19 @@ const SkillsForm = (props) => {
         <>{form3}</>
       ) : (
         <Grid container spacing={2}>
-          <Grid item md={6} xs={12} sm={6}>
+          <Grid item md={7} xs={12} sm={6}>
             {form3}
           </Grid>
-          <Grid item md={6} xs={12} sm={6}>
-            <Card variant="outlined" sx={{ backgroundColor: "#f5f5f5" }}>
-              <CardContent>
+          <Grid item md={5} xs={12} sm={6}>
+            <Card
+              variant="outlined"
+              sx={{
+                backgroundColor: "#f5f5f5",
+                width: "500px",
+                margin: "20px",
+              }}
+            >
+              <CardContent sx={{ display: "flex", justifyContent: "center" }}>
                 <Typography
                   sx={{ color: "#17354f" }}
                   gutterBottom
