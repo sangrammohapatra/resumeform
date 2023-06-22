@@ -10,8 +10,11 @@ import Style from "./Navbar.module.css";
 export default function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ backgroundColor: "#245279",height:"9vh" }}>
-        <Toolbar>
+      <AppBar
+        position="static"
+        style={{ backgroundColor: "#245279", height: "9vh" }}
+      >
+        <Toolbar style={{ height: "9vh" }}>
           <img src={logoImg} alt="logo" className={Style.logo} />
           <Typography ml={3} variant="h5" component="div" sx={{ flexGrow: 1 }}>
             Portfolio Webiste Builder
