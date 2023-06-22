@@ -19,10 +19,10 @@ const EducationForm = (props) => {
   const [instituteName, setInstituteName] = useState("");
   const [location, setLocation] = useState("");
   const [degree, setDegree] = useState("");
-  const [startDate, setStartDate] = useState(dayjs());
-  const [endDate, setEndDate] = useState(dayjs());
+  const [date1, setDate1] = useState(dayjs());
+  const [date2, setDate2] = useState(dayjs());
   const [website, setWebsite] = useState("");
-  const [marks, setMarks] = useState("");
+  const [grade, setGrade] = useState("");
   const [education, setEducation] = useState([]);
   const [flag, setFlag] = useState(true);
   const [editIndex, setEditIndex] = useState(null);
@@ -42,16 +42,16 @@ const EducationForm = (props) => {
 
   const handleSubmit = (e, index) => {
     e.preventDefault();
-    const Date1 = moment(startDate).format("DD/MMM/YYYY");
-    const Date2 = moment(endDate).format("DD/MMM/YYYY");
+    const startDate = moment(date1).format("YYYY-MM-DD");
+    const endDate = moment(date2).format("YYYY-MM-DD");
     const formData = {
       instituteName,
       location,
       degree,
-      Date1,
-      Date2,
+      startDate,
+      endDate,
       website,
-      marks,
+      grade,
     };
 
     if (editIndex !== null) {
@@ -66,10 +66,10 @@ const EducationForm = (props) => {
     setInstituteName("");
     setLocation("");
     setDegree("");
-    setStartDate(dayjs());
-    setEndDate(dayjs());
+    setDate1(dayjs());
+    setDate2(dayjs());
     setWebsite("");
-    setMarks("");
+    setGrade("");
     setFlag(false);
   };
 
@@ -77,10 +77,10 @@ const EducationForm = (props) => {
     setInstituteName(education[index].instituteName);
     setLocation(education[index].location);
     setDegree(education[index].degree);
-    setStartDate(education[index].startDate);
-    setEndDate(education[index].endDate);
+    setDate1(education[index].date1);
+    setDate2(education[index].date2);
     setWebsite(education[index].website);
-    setMarks(education[index].marks);
+    setGrade(education[index].grade);
     setEditIndex(index);
   };
 
@@ -140,9 +140,9 @@ const EducationForm = (props) => {
               <DesktopDatePicker
                 sx={{ width: "100%" }}
                 label="Start Date"
-                value={startDate}
+                value={date1}
                 onChange={(newValue) => {
-                  setStartDate(newValue);
+                  setDate1(newValue);
                 }}
               />
             </DemoContainer>
@@ -154,8 +154,8 @@ const EducationForm = (props) => {
               <DesktopDatePicker
                 sx={{ width: "100%" }}
                 label="End Date"
-                value={endDate}
-                onChange={(newValue) => setEndDate(newValue)}
+                value={date2}
+                onChange={(newValue) => setDate2(newValue)}
               />
             </DemoContainer>
           </LocalizationProvider>
@@ -173,11 +173,11 @@ const EducationForm = (props) => {
           <TextField
             required
             fullWidth
-            label="Marks"
+            label="Grade/Marks"
             variant="outlined"
             type="number"
-            value={marks}
-            onChange={(e) => setMarks(e.target.value)}
+            value={grade}
+            onChange={(e) => setGrade(e.target.value)}
           />
         </Grid>
         <Grid item md={6} xs={12} sm={6}></Grid>
@@ -238,6 +238,7 @@ const EducationForm = (props) => {
                   <Accordion
                     expanded={expanded === `panel${index}`}
                     onChange={handleChange(`panel${index}`)}
+                    key={index}
                   >
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon />}

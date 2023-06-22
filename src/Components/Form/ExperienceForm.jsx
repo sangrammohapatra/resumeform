@@ -24,15 +24,14 @@ const ExperienceForm = (props) => {
   const [companyName, setCompanyName] = useState("");
   const [location, setLocation] = useState("");
   const [role, setRole] = useState("");
-  const [startDate, setStartDate] = useState(dayjs());
-  const [endDate, setEndDate] = useState(dayjs());
+  const [Date1, setDate1] = useState(dayjs());
+  const [date2, setDate2] = useState(dayjs());
   const [website, setWebsite] = useState("");
-  const [description, setDescription] = useState("");
-  const [skills, setSkills] = useState("");
+  const [content, setContent] = useState([]);
+  const [skills, setSkills] = useState([]);
   const [experience, setExperience] = useState([]);
   const [flag, setFlag] = useState(true);
   const [editIndex, setEditIndex] = useState(null);
-
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -48,17 +47,17 @@ const ExperienceForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const Date1 = moment(startDate).format("DD/MMM/YYYY");
-    const Date2 = moment(endDate).format("DD/MMM/YYYY");
+    const startDate = moment(Date1).format("YYYY-MM-DD");
+    const endDate = moment(date2).format("YYYY-MM-DD");
 
     const formData = {
       companyName,
       location,
       role,
-      Date1,
-      Date2,
+      startDate,
+      endDate,
       website,
-      description,
+      content,
       skills,
     };
     if (editIndex !== null) {
@@ -72,10 +71,10 @@ const ExperienceForm = (props) => {
     setCompanyName("");
     setLocation("");
     setRole("");
-    setStartDate(dayjs());
-    setEndDate(dayjs());
+    setDate1(dayjs());
+    setDate2(dayjs());
     setWebsite("");
-    setDescription("");
+    setContent("");
     setSkills("");
     setFlag(false);
   };
@@ -92,10 +91,10 @@ const ExperienceForm = (props) => {
     setCompanyName(experience[index].companyName);
     setLocation(experience[index].location);
     setRole(experience[index].role);
-    setStartDate(experience[index].startDate);
-    setEndDate(experience[index].endDate);
+    // setDate1(experience[index].Date1);
+    // setDate2(experience[index].date2);
     setWebsite(experience[index].website);
-    setDescription(experience[index].description);
+    setContent(experience[index].content);
     setSkills(experience[index].skills);
     setEditIndex(index);
   };
@@ -146,9 +145,9 @@ const ExperienceForm = (props) => {
               <DesktopDatePicker
                 sx={{ width: "100%" }}
                 label="Start Date"
-                value={startDate}
+                value={Date1}
                 onChange={(newValue) => {
-                  setStartDate(newValue);
+                  setDate1(newValue);
                 }}
               />
             </DemoContainer>
@@ -160,8 +159,8 @@ const ExperienceForm = (props) => {
               <DesktopDatePicker
                 sx={{ width: "100%" }}
                 label="End Date"
-                value={endDate}
-                onChange={(newValue) => setEndDate(newValue)}
+                value={date2}
+                onChange={(newValue) => setDate2(newValue)}
               />
             </DemoContainer>
           </LocalizationProvider>
@@ -182,9 +181,13 @@ const ExperienceForm = (props) => {
             fullWidth
             label="Description"
             variant="outlined"
-            multiline
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={content}
+            onChange={(e) =>
+              setContent(() => {
+                const ctxContent = e.target.value;
+                return ctxContent.split(".");
+              })
+            }
           />
         </Grid>
         <Grid item md={6} xs={12} sm={6}>
@@ -194,7 +197,12 @@ const ExperienceForm = (props) => {
             label="Skills Involved"
             variant="outlined"
             value={skills}
-            onChange={(e) => setSkills(e.target.value)}
+            onChange={(e) =>
+              setSkills(() => {
+                const ctxSkill = e.target.value;
+                return ctxSkill.split(",");
+              })
+            }
           />
         </Grid>
         <Grid item md={6} xs={12} sm={6}>
@@ -250,6 +258,7 @@ const ExperienceForm = (props) => {
                   <Accordion
                     expanded={expanded === `panel${index}`}
                     onChange={handleChange(`panel${index}`)}
+                    key={index}
                   >
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon />}

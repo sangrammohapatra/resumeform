@@ -9,15 +9,14 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const ProjectForm = (props) => {
-  const [projectTitle, setProjectTitle] = useState("");
-  const [projectDescription, setProjectDescription] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState([]);
   const [githubLink, setGithubLink] = useState("");
   const [deployedLink, setDeployedLink] = useState("");
   const [driveLinks, setDriveLinks] = useState("");
   const [projects, setProjects] = useState([]);
   const [flag, setFlag] = useState(true);
   const [editIndex, setEditIndex] = useState(null);
-
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -34,11 +33,9 @@ const ProjectForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      projectTitle,
-      projectDescription,
-      githubLink,
-      deployedLink,
-      driveLinks,
+      title,
+      content,
+      links: { github: githubLink, website: deployedLink, images: driveLinks },
     };
     if (editIndex !== null) {
       const updatedEducation = [...projects];
@@ -48,8 +45,8 @@ const ProjectForm = (props) => {
     } else {
       setProjects([...projects, formData]);
     }
-    setProjectTitle("");
-    setProjectDescription("");
+    setTitle("");
+    setContent("");
     setGithubLink("");
     setDeployedLink("");
     setDriveLinks("");
@@ -66,8 +63,8 @@ const ProjectForm = (props) => {
   };
 
   const editDetailsHandler = (index) => {
-    setProjectTitle(projects[index].projectTitle);
-    setProjectDescription(projects[index].projectDescription);
+    setTitle(projects[index].title);
+    setContent(projects[index].content);
     setGithubLink(projects[index].githubLink);
     setDriveLinks(projects[index].driveLinks);
     setDeployedLink(projects[index].deployedLink);
@@ -81,12 +78,15 @@ const ProjectForm = (props) => {
     console.log(projects.length);
   };
 
-  const handleProjectTitleChange = (e) => {
-    setProjectTitle(e.target.value);
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
   };
 
-  const handleProjectDescriptionChange = (e) => {
-    setProjectDescription(e.target.value);
+  const handleContentChange = (e) => {
+    setContent(() => {
+      const ctxContent = e.target.value;
+      return ctxContent.split(".");
+    });
   };
 
   const handleGithubLinkChange = (e) => {
@@ -98,7 +98,10 @@ const ProjectForm = (props) => {
   };
 
   const handleDriveLinksChange = (e) => {
-    setDriveLinks(e.target.value);
+    setDriveLinks(() => {
+      const ctxDrivelink = e.target.value;
+      return ctxDrivelink.split(",");
+    });
   };
 
   const form4 = (
@@ -111,8 +114,8 @@ const ProjectForm = (props) => {
               fullWidth
               label="Project Title"
               variant="outlined"
-              value={projectTitle}
-              onChange={handleProjectTitleChange}
+              value={title}
+              onChange={handleTitleChange}
             />
           </Grid>
           <Grid item md={6} xs={12} sm={6}>
@@ -122,8 +125,8 @@ const ProjectForm = (props) => {
               label="Project Description"
               variant="outlined"
               multiline
-              value={projectDescription}
-              onChange={handleProjectDescriptionChange}
+              value={content}
+              onChange={handleContentChange}
             />
           </Grid>
           <Grid item md={6} xs={12} sm={6}>
@@ -173,7 +176,6 @@ const ProjectForm = (props) => {
           >
             <Button
               className={Styles.formButton}
-    
               variant="contained"
               color="primary"
               onClick={handleFinish}
@@ -213,6 +215,7 @@ const ProjectForm = (props) => {
                   <Accordion
                     expanded={expanded === `panel${index}`}
                     onChange={handleChange(`panel${index}`)}
+                    key={index}
                   >
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon />}
@@ -220,7 +223,7 @@ const ProjectForm = (props) => {
                       id="panel3bh-header"
                     >
                       <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                        {`${item.projectTitle} Details`}
+                        {`${item.title} Details`}
                       </Typography>
                     </AccordionSummary>
                     <AccordionDetails>

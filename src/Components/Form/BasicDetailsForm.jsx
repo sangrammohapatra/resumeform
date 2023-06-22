@@ -28,15 +28,34 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
     e.preventDefault();
     const formData = {
       name,
-      email,
-      phone,
       designation,
       description,
-      githubLink,
-      linkedInLink,
-      resumeLink,
-      leetcodeLink,
-      geeksforgeeksLink,
+      links: [
+        {
+          type: "github",
+          link: githubLink,
+        },
+        {
+          type: "linkedIn",
+          link: linkedInLink,
+        },
+        {
+          type: "resume",
+          link: resumeLink,
+        },
+        {
+          type: "leetcode",
+          link: leetcodeLink,
+        },
+        {
+          type: "geeksforgeeks",
+          link: geeksforgeeksLink,
+        },
+      ],
+      contact: {
+        phoneNumber: phone,
+        emailId: email,
+      },
     };
     setBasicDetails(formData);
     setName("");
@@ -66,15 +85,15 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
 
   const editDetailsHandler = () => {
     setName(basicDetails.name);
-    setEmail(basicDetails.email);
-    setPhone(basicDetails.phone);
+    setEmail(basicDetails.contact.emailId);
+    setPhone(basicDetails.contact.phoneNumber);
     setDesignation(basicDetails.designation);
     setDescription(basicDetails.description);
-    setGithubLink(basicDetails.githubLink);
-    setLinkedInLink(basicDetails.linkedInLink);
-    setResumeLink(basicDetails.resumeLink);
-    setLeetcodeLink(basicDetails.leetcodeLink);
-    setGeeksforgeeksLink(basicDetails.geeksforgeeksLink);
+    setGithubLink(basicDetails.links[0].link);
+    setLinkedInLink(basicDetails.links[1].link);
+    setResumeLink(basicDetails.links[2].link);
+    setLeetcodeLink(basicDetails.links[3].link);
+    setGeeksforgeeksLink(basicDetails.links[4].link);
   };
 
   const deleteDetailsHandler = () => {
@@ -243,15 +262,39 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
                 >
                   Basic Details
                 </Typography>
-                {Object.keys(basicDetails).map((key, index) => (
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    key={index}
-                  >
-                    {`${key.toUpperCase()} : ${basicDetails[key]}`}
-                  </Typography>
-                ))}
+                {Object.keys(basicDetails).map((key, index) => {
+                  if (key === "links") {
+                    return basicDetails[key].map((itm, indx) => (
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        key={indx}
+                      >
+                        {`${itm.type.toUpperCase()} : ${itm.link}`}
+                      </Typography>
+                    ));
+                  }
+                  if (key === "contact") {
+                    return Object.keys(basicDetails[key]).map((itm, indx) => (
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        key={indx}
+                      >
+                        {`${itm.toUpperCase()} : ${basicDetails[key][itm]}`}
+                      </Typography>
+                    ));
+                  }
+                  return (
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      key={index}
+                    >
+                      {`${key.toUpperCase()} : ${basicDetails[key]}`}
+                    </Typography>
+                  );
+                })}
               </CardContent>
               <CardActions
                 sx={{
