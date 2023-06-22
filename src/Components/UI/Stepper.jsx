@@ -32,8 +32,18 @@ const FormStepper = (props) => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleFormSubmit = () => {
-    console.log("Collected details:", resumeData);
+  const handleFormSubmit = async () => {
+    try {
+      console.log("Collected details:", resumeData);
+      const data = await fetch("https://resume-buider-be.vercel.app/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resume: "test" }),
+      });
+      console.log("BE", await data.json());
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getStepContent = (step) => {
