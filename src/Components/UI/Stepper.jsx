@@ -38,7 +38,7 @@ const FormStepper = (props) => {
       const data = await fetch("https://resume-buider-be.vercel.app/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ resume: "test" }),
+        body: JSON.stringify({ resume: resumeData }),
       });
       console.log("BE", await data.json());
     } catch (error) {
