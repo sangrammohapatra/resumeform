@@ -19,6 +19,7 @@ import ExpandMoreIcon from "@mui/icons-material/ArrowDropDown";
 import dayjs from "dayjs";
 import moment from "moment";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { FcNext } from "react-icons/fc";
 
 const ExperienceForm = (props) => {
   const [companyName, setCompanyName] = useState("");
@@ -84,7 +85,7 @@ const ExperienceForm = (props) => {
       experience: experience,
     });
     console.log("Experience Form Data:", experience);
-    props.onSubmit(experience);
+    props.onSubmit();
   };
 
   const editDetailsHandler = (index) => {
@@ -224,7 +225,7 @@ const ExperienceForm = (props) => {
             color="primary"
             onClick={handleFinish}
           >
-            Submit
+            Submit <FcNext />
           </Button>
         </Grid>
       </Grid>

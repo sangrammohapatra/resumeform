@@ -7,6 +7,7 @@ import ExpandMoreIcon from "@mui/icons-material/ArrowDropDown";
 import Styles from "./ProjectsForm.module.css";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { FcApproval } from "react-icons/fc";
 
 const ProjectForm = (props) => {
   const [title, setTitle] = useState("");
@@ -17,9 +18,9 @@ const ProjectForm = (props) => {
   const [projects, setProjects] = useState([]);
   const [flag, setFlag] = useState(true);
   const [editIndex, setEditIndex] = useState(null);
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
-  const handleChange = (panel) => (event, isExpanded) => {
+  const handleChange = (panel) => (isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
@@ -38,9 +39,9 @@ const ProjectForm = (props) => {
       links: { github: githubLink, website: deployedLink, images: driveLinks },
     };
     if (editIndex !== null) {
-      const updatedEducation = [...projects];
-      updatedEducation[editIndex] = formData;
-      setProjects(updatedEducation);
+      const updatedProjects = [...projects];
+      updatedProjects[editIndex] = formData;
+      setProjects(updatedProjects);
       setEditIndex(null);
     } else {
       setProjects([...projects, formData]);
@@ -59,15 +60,15 @@ const ProjectForm = (props) => {
       projects: projects,
     });
     console.log("Project Form Data:", projects);
-    props.onSubmit(projects);
+    props.onSubmit();
   };
 
   const editDetailsHandler = (index) => {
     setTitle(projects[index].title);
     setContent(projects[index].content);
-    setGithubLink(projects[index].githubLink);
-    setDriveLinks(projects[index].driveLinks);
-    setDeployedLink(projects[index].deployedLink);
+    setGithubLink(projects[index].links.github);
+    setDriveLinks(projects[index].links.images);
+    setDeployedLink(projects[index].links.website);
     setEditIndex(index);
   };
 
@@ -180,7 +181,7 @@ const ProjectForm = (props) => {
               color="primary"
               onClick={handleFinish}
             >
-              Submit
+              Submit <FcApproval />
             </Button>
           </Grid>
         </Grid>
@@ -227,11 +228,24 @@ const ProjectForm = (props) => {
                       </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                      {Object.keys(item).map((key, index) => (
-                        <Typography variant="body2" color="black" key={index}>
-                          {`${key.toUpperCase()} : ${item[key]}`}
-                        </Typography>
-                      ))}
+                      {Object.keys(item).map((key, index) => {
+                        if (key === "contact") {
+                          return Object.keys(item[key]).map((itm, indx) => (
+                            <Typography
+                              variant="body2"
+                              color="text.secondary"
+                              key={indx}
+                            >
+                              {`${itm.toUpperCase()} : ${item[key][itm]}`}
+                            </Typography>
+                          ));
+                        }
+                        return (
+                          <Typography variant="body2" color="black" key={index}>
+                            {`${key.toUpperCase()} : ${item[key]}`}
+                          </Typography>
+                        );
+                      })}
                     </AccordionDetails>
                     <div className={Styles.buttonContainer}>
                       <Button
