@@ -203,7 +203,12 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
             />
           </Grid>
           <Grid item md={6} xs={12} sm={6}>
-            <Button type="submit" variant="outlined" color="primary">
+            <Button
+              sx={{ height: "50px" }}
+              type="submit"
+              variant="outlined"
+              color="primary"
+            >
               Add Basic Details
             </Button>
           </Grid>
@@ -218,7 +223,12 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               justifyContent: "flex-end",
             }}
           >
-            <Button variant="contained" color="primary" onClick={handleFinish}>
+            <Button
+              sx={{ height: "40px" }}
+              variant="contained"
+              color="primary"
+              onClick={handleFinish}
+            >
               Submit
             </Button>
           </Grid>

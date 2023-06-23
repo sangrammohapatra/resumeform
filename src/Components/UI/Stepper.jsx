@@ -24,7 +24,8 @@ const FormStepper = (props) => {
     console.log("Data", resumeData);
   }, [resumeData]);
 
-  const handleNext = () => {
+  const handleNext = (data) => {
+    console.log(data);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
