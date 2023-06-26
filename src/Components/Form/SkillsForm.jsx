@@ -65,7 +65,7 @@ const SkillsForm = (props) => {
               options={options.map((option) => option)}
               freeSolo
               value={skills}
-              onChange={(event, newValue) => setSkills(newValue)}
+              onChange={(newValue) => setSkills(newValue)}
               renderTags={(value, getTagProps) =>
                 value.map((option, index) => (
                   <Chip

@@ -33,6 +33,7 @@ const FormStepper = (props) => {
   };
 
   const handleFormSubmit = async () => {
+    handleNext();
     try {
       console.log("Collected details:", resumeData);
       const data = await fetch("https://resume-buider-be.vercel.app/", {
