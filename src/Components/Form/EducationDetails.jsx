@@ -14,7 +14,6 @@ import dayjs from "dayjs";
 import moment from "moment";
 import { IconButton, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { FcNext } from "react-icons/fc";
 
 const EducationForm = (props) => {
   const [instituteName, setInstituteName] = useState("");
@@ -91,7 +90,7 @@ const EducationForm = (props) => {
       education: education,
     });
     console.log("Education Form Data:", education);
-    props.onSubmit();
+    props.onSubmit(education);
     setFlag(true);
   };
 
@@ -204,7 +203,7 @@ const EducationForm = (props) => {
             color="primary"
             onClick={handleFinish}
           >
-            Submit <FcNext />
+            Submit
           </Button>
         </Grid>
       </Grid>

@@ -7,7 +7,6 @@ import ExpandMoreIcon from "@mui/icons-material/ArrowDropDown";
 import Styles from "./ProjectsForm.module.css";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { FcApproval } from "react-icons/fc";
 
 const ProjectForm = (props) => {
   const [title, setTitle] = useState("");
@@ -18,9 +17,9 @@ const ProjectForm = (props) => {
   const [projects, setProjects] = useState([]);
   const [flag, setFlag] = useState(true);
   const [editIndex, setEditIndex] = useState(null);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = React.useState(false);
 
-  const handleChange = (panel) => (isExpanded) => {
+  const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
@@ -39,9 +38,9 @@ const ProjectForm = (props) => {
       links: { github: githubLink, website: deployedLink, images: driveLinks },
     };
     if (editIndex !== null) {
-      const updatedProjects = [...projects];
-      updatedProjects[editIndex] = formData;
-      setProjects(updatedProjects);
+      const updatedEducation = [...projects];
+      updatedEducation[editIndex] = formData;
+      setProjects(updatedEducation);
       setEditIndex(null);
     } else {
       setProjects([...projects, formData]);
@@ -60,15 +59,15 @@ const ProjectForm = (props) => {
       projects: projects,
     });
     console.log("Project Form Data:", projects);
-    props.onSubmit();
+    props.onSubmit(projects);
   };
 
   const editDetailsHandler = (index) => {
     setTitle(projects[index].title);
     setContent(projects[index].content);
-    setGithubLink(projects[index].links.github);
-    setDriveLinks(projects[index].links.images);
-    setDeployedLink(projects[index].links.website);
+    setGithubLink(projects[index].githubLink);
+    setDriveLinks(projects[index].driveLinks);
+    setDeployedLink(projects[index].deployedLink);
     setEditIndex(index);
   };
 
@@ -181,7 +180,7 @@ const ProjectForm = (props) => {
               color="primary"
               onClick={handleFinish}
             >
-              Submit <FcApproval />
+              Submit
             </Button>
           </Grid>
         </Grid>
@@ -229,34 +228,16 @@ const ProjectForm = (props) => {
                     </AccordionSummary>
                     <AccordionDetails>
                       {Object.keys(item).map((key, index) => {
-                        if (key === "links") {
-                          return Object.keys(item[key]).map((itm, indx) => {
-                            if (itm === "images") {
-                              return Object.keys(item[key].itm).map(
-                                (ele, ind) => (
-                                  <Typography
-                                    variant="body2"
-                                    color="black"
-                                    key={ind}
-                                  >
-                                    {`${ele.toUpperCase()} : ${
-                                      item[key][itm][ele]
-                                    }`}
-                                  </Typography>
-                                )
-                              );
-                            }
-
-                            return (
-                              <Typography
-                                variant="body2"
-                                color="black"
-                                key={indx}
-                              >
-                                {`${itm.toUpperCase()} : ${item[key][itm]}`}
-                              </Typography>
-                            );
-                          });
+                        if (key === "contact") {
+                          return Object.keys(item[key]).map((itm, indx) => (
+                            <Typography
+                              variant="body2"
+                              color="text.secondary"
+                              key={indx}
+                            >
+                              {`${itm.toUpperCase()} : ${item[key][itm]}`}
+                            </Typography>
+                          ));
                         }
                         return (
                           <Typography variant="body2" color="black" key={index}>

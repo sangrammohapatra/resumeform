@@ -3,7 +3,6 @@ import { TextField, Button, Grid, Box } from "@mui/material";
 import Styles from "./SkillsForm.module.css";
 import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
-import { FcNext } from "react-icons/fc";
 
 const options = [
   "Node JS",
@@ -51,7 +50,7 @@ const SkillsForm = (props) => {
       skills: formData,
     });
     console.log("Skills Form Data:", formData);
-    props.onSubmit();
+    props.onSubmit(formData);
   };
 
   return (
@@ -104,7 +103,7 @@ const SkillsForm = (props) => {
               onClick={handleFinish}
               sx={{ height: "40px" }}
             >
-              Submit <FcNext />
+              Submit
             </Button>
           </Grid>
         </Grid>

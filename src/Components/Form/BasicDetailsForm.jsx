@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Button, Grid, Box } from "@mui/material";
 import Styles from "./BasicDetails.module.css";
 import {
@@ -9,7 +9,6 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { FcNext } from "react-icons/fc";
 
 const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
   const [name, setName] = useState("");
@@ -79,7 +78,8 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
     });
 
     console.log("Basic Details Form Data:", basicDetails);
-    onSubmit();
+    console.log("Resume data", resumeData);
+    onSubmit(basicDetails);
     setFlag(true);
   };
 
@@ -359,18 +359,16 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               color="primary"
               onClick={handleFinish}
             >
-              Submit <FcNext />
+              Submit
             </Button>
           </Grid>
         </Grid>
-        <Typography>
-          *First click on Add Basic Details to add the basic details to resume
-          then click on SUBMIT to proceed further.
-        </Typography>
       </Box>
     </form>
   );
-
+  useEffect(() => {
+    console.log(flag);
+  }, [flag]);
   return (
     <Box>
       {flag ? (
