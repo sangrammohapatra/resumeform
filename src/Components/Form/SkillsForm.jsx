@@ -3,6 +3,7 @@ import { TextField, Button, Grid, Box } from "@mui/material";
 import Styles from "./SkillsForm.module.css";
 import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
+import { FcNext } from "react-icons/fc";
 
 const options = [
   "Node JS",
@@ -30,16 +31,14 @@ const options = [
 ];
 const SkillsForm = (props) => {
   const [skills, setSkills] = useState([]);
-  const [flag, setFlag] = useState(true);
   const formData = [...skills];
 
   useEffect(() => {
     console.log(formData);
-  }, [flag, formData]);
+  }, [formData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFlag(false);
   };
 
   const handleFinish = (e) => {
@@ -50,7 +49,7 @@ const SkillsForm = (props) => {
       skills: formData,
     });
     console.log("Skills Form Data:", formData);
-    props.onSubmit(formData);
+    props.onSubmit();
   };
 
   return (
@@ -63,8 +62,7 @@ const SkillsForm = (props) => {
               id="tags-filled"
               options={options.map((option) => option)}
               freeSolo
-              value={skills}
-              onChange={(newValue) => setSkills(newValue)}
+              onChange={(event, newValue) => setSkills(newValue)}
               renderTags={(value, getTagProps) =>
                 value.map((option, index) => (
                   <Chip
@@ -103,7 +101,7 @@ const SkillsForm = (props) => {
               onClick={handleFinish}
               sx={{ height: "40px" }}
             >
-              Submit
+              Submit <FcNext />
             </Button>
           </Grid>
         </Grid>

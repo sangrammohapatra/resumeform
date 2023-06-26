@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { TextField, Button, Grid, Box } from "@mui/material";
 import Styles from "./BasicDetails.module.css";
 import {
@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { FcNext } from "react-icons/fc";
 
 const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
   const [name, setName] = useState("");
@@ -78,8 +79,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
     });
 
     console.log("Basic Details Form Data:", basicDetails);
-    console.log("Resume data", resumeData);
-    onSubmit(basicDetails);
+    onSubmit();
     setFlag(true);
   };
 
@@ -110,18 +110,8 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               fullWidth
               label="Name"
               variant="outlined"
-              value={resumeData.body.name}
-              onChange={(e) =>
-                setResumeData((prev) => {
-                  return {
-                    ...prev,
-                    body: {
-                      ...prev.body,
-                      name: e.target.value,
-                    },
-                  };
-                })
-              }
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className={Styles["form-field"]}
             />
           </Grid>
@@ -133,17 +123,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               variant="outlined"
               type="email"
               value={email}
-              onChange={(e) =>
-                setResumeData((prev) => {
-                  return {
-                    ...prev,
-                    body: {
-                      ...prev.body,
-                      email: e.target.value,
-                    },
-                  };
-                })
-              }
+              onChange={(e) => setEmail(e.target.value)}
             />
           </Grid>
           <Grid item md={6} xs={12} sm={6}>
@@ -153,17 +133,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               label="Phone"
               variant="outlined"
               value={phone}
-              onChange={(e) =>
-                setResumeData((prev) => {
-                  return {
-                    ...prev,
-                    body: {
-                      ...prev.body,
-                      phone: e.target.value,
-                    },
-                  };
-                })
-              }
+              onChange={(e) => setPhone(e.target.value)}
             />
           </Grid>
           <Grid item md={6} xs={12} sm={6}>
@@ -173,17 +143,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               label="Designation"
               variant="outlined"
               value={designation}
-              onChange={(e) =>
-                setResumeData((prev) => {
-                  return {
-                    ...prev,
-                    body: {
-                      ...prev.body,
-                      designation: e.target.value,
-                    },
-                  };
-                })
-              }
+              onChange={(e) => setDesignation(e.target.value)}
             />
           </Grid>
           <Grid item md={6} xs={12} sm={6}>
@@ -194,17 +154,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               variant="outlined"
               multiline
               value={description}
-              onChange={(e) =>
-                setResumeData((prev) => {
-                  return {
-                    ...prev,
-                    body: {
-                      ...prev.body,
-                      description: e.target.value,
-                    },
-                  };
-                })
-              }
+              onChange={(e) => setDescription(e.target.value)}
             />
           </Grid>
           <Grid item md={6} xs={12} sm={6}>
@@ -213,23 +163,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               label="GitHub Link"
               variant="outlined"
               value={githubLink}
-              onChange={(e) =>
-                setResumeData((prev) => {
-                  return {
-                    ...prev,
-                    body: {
-                      ...prev.body,
-                      links: [
-                        ...prev.body.links,
-                        {
-                          type: "github",
-                          link: e.target.value,
-                        },
-                      ],
-                    },
-                  };
-                })
-              }
+              onChange={(e) => setGithubLink(e.target.value)}
             />
           </Grid>
           <Grid item md={6} xs={12} sm={6}>
@@ -238,23 +172,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               label="LinkedIn Link"
               variant="outlined"
               value={linkedInLink}
-              onChange={(e) =>
-                setResumeData((prev) => {
-                  return {
-                    ...prev,
-                    body: {
-                      ...prev.body,
-                      links: [
-                        ...prev.body.links,
-                        {
-                          type: "linkedin",
-                          link: e.target.value,
-                        },
-                      ],
-                    },
-                  };
-                })
-              }
+              onChange={(e) => setLinkedInLink(e.target.value)}
             />
           </Grid>
           <Grid item md={6} xs={12} sm={6}>
@@ -263,23 +181,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               label="Resume Link"
               variant="outlined"
               value={resumeLink}
-              onChange={(e) =>
-                setResumeData((prev) => {
-                  return {
-                    ...prev,
-                    body: {
-                      ...prev.body,
-                      links: [
-                        ...prev.body.links,
-                        {
-                          type: "resume",
-                          link: e.target.value,
-                        },
-                      ],
-                    },
-                  };
-                })
-              }
+              onChange={(e) => setResumeLink(e.target.value)}
             />
           </Grid>
           <Grid item md={6} xs={12} sm={6}>
@@ -288,23 +190,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               label="LeetCode Link"
               variant="outlined"
               value={leetcodeLink}
-              onChange={(e) =>
-                setResumeData((prev) => {
-                  return {
-                    ...prev,
-                    body: {
-                      ...prev.body,
-                      links: [
-                        ...prev.body.links,
-                        {
-                          type: "leetcode",
-                          link: e.target.value,
-                        },
-                      ],
-                    },
-                  };
-                })
-              }
+              onChange={(e) => setLeetcodeLink(e.target.value)}
             />
           </Grid>
           <Grid item md={6} xs={12} sm={6}>
@@ -313,23 +199,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               label="GeeksforGeeks Link"
               variant="outlined"
               value={geeksforgeeksLink}
-              onChange={(e) =>
-                setResumeData((prev) => {
-                  return {
-                    ...prev,
-                    body: {
-                      ...prev.body,
-                      links: [
-                        ...prev.body.links,
-                        {
-                          type: "geekforgeeks",
-                          link: e.target.value,
-                        },
-                      ],
-                    },
-                  };
-                })
-              }
+              onChange={(e) => setGeeksforgeeksLink(e.target.value)}
             />
           </Grid>
           <Grid item md={6} xs={12} sm={6}>
@@ -359,16 +229,13 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
               color="primary"
               onClick={handleFinish}
             >
-              Submit
+              Submit <FcNext />
             </Button>
           </Grid>
         </Grid>
       </Box>
     </form>
   );
-  useEffect(() => {
-    console.log(flag);
-  }, [flag]);
   return (
     <Box>
       {flag ? (

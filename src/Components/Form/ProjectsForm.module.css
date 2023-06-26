@@ -31,9 +31,6 @@
 .actions {
   justify-content: "flex-end";
 }
-.accordion {
-  /* border: 2px solid red; */
-}
 
 .buttonContainer {
   display: flex;

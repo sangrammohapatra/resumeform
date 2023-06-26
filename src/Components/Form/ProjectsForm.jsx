@@ -7,6 +7,7 @@ import ExpandMoreIcon from "@mui/icons-material/ArrowDropDown";
 import Styles from "./ProjectsForm.module.css";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { FcApproval } from "react-icons/fc";
 
 const ProjectForm = (props) => {
   const [title, setTitle] = useState("");
@@ -59,7 +60,7 @@ const ProjectForm = (props) => {
       projects: projects,
     });
     console.log("Project Form Data:", projects);
-    props.onSubmit(projects);
+    props.onSubmit();
   };
 
   const editDetailsHandler = (index) => {
@@ -180,7 +181,7 @@ const ProjectForm = (props) => {
               color="primary"
               onClick={handleFinish}
             >
-              Submit
+              Submit <FcApproval />
             </Button>
           </Grid>
         </Grid>
@@ -228,16 +229,33 @@ const ProjectForm = (props) => {
                     </AccordionSummary>
                     <AccordionDetails>
                       {Object.keys(item).map((key, index) => {
-                        if (key === "contact") {
-                          return Object.keys(item[key]).map((itm, indx) => (
-                            <Typography
-                              variant="body2"
-                              color="text.secondary"
-                              key={indx}
-                            >
-                              {`${itm.toUpperCase()} : ${item[key][itm]}`}
-                            </Typography>
-                          ));
+                        if (key === "links") {
+                          return Object.keys(item[key]).map((itm, indx) => {
+                            if (itm === "images") {
+                              return Object.keys(item[key].itm).map(
+                                (ele, ind) => (
+                                  <Typography
+                                    variant="body2"
+                                    color="black"
+                                    key={ind}
+                                  >
+                                    {`${ele.toUpperCase()} : ${
+                                      item[key][itm][ele]
+                                    }`}
+                                  </Typography>
+                                )
+                              );
+                            }
+                            return (
+                              <Typography
+                                variant="body2"
+                                color="black"
+                                key={indx}
+                              >
+                                {`${itm.toUpperCase()} : ${item[key][itm]}`}
+                              </Typography>
+                            );
+                          });
                         }
                         return (
                           <Typography variant="body2" color="black" key={index}>

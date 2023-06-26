@@ -6,7 +6,7 @@ import SkillsForm from "../Form/SkillsForm";
 import ExperienceForm from "../Form/ExperienceForm";
 import ProjectsForm from "../Form/ProjectsForm";
 import Styles from "./Stepper.module.css";
-import { FcNext, FcPrevious, FcApproval } from "react-icons/fc";
+import { FcPrevious } from "react-icons/fc";
 
 const steps = [
   "Basic Details",
@@ -18,27 +18,14 @@ const steps = [
 
 const FormStepper = (props) => {
   const [activeStep, setActiveStep] = useState(0);
-  const [resumeData, setResumeData] = useState({
-    body: {
-      name: "",
-      designation: "",
-      description: "",
-      links: [],
-      contact: {
-        phoneNumber: "",
-        emailId: "",
-      },
-    },
-  });
+  const [resumeData, setResumeData] = useState();
 
   useEffect(() => {
     console.log("Data", resumeData);
   }, [resumeData]);
 
-  const handleNext = (data) => {
-    console.log(data);
+  const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    console.log(resumeData);
   };
 
   const handleBack = () => {
@@ -146,22 +133,6 @@ const FormStepper = (props) => {
                   <FcPrevious />
                   Back
                 </>
-              </Button>
-              <Button
-                size="large"
-                variant="contained"
-                onClick={handleNext}
-                style={{ backgroundColor: "#245279" }}
-              >
-                {activeStep === steps.length - 1 ? (
-                  <>
-                    Submit <FcApproval />
-                  </>
-                ) : (
-                  <>
-                    Next <FcNext />
-                  </>
-                )}
               </Button>
             </div>
           </div>
