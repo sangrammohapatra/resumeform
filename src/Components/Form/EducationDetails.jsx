@@ -78,8 +78,6 @@ const EducationForm = (props) => {
     setInstituteName(education[index].instituteName);
     setLocation(education[index].location);
     setDegree(education[index].degree);
-    setDate1(education[index].date1);
-    setDate2(education[index].date2);
     setWebsite(education[index].website);
     setGrade(education[index].grade);
     setEditIndex(index);
@@ -99,7 +97,6 @@ const EducationForm = (props) => {
     const updatedEducation = [...education];
     updatedEducation.splice(index, 1);
     setEducation(updatedEducation);
-    console.log(education.length);
   };
 
   const form2 = (

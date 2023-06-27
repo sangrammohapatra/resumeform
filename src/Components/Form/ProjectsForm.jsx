@@ -66,9 +66,9 @@ const ProjectForm = (props) => {
   const editDetailsHandler = (index) => {
     setTitle(projects[index].title);
     setContent(projects[index].content);
-    setGithubLink(projects[index].githubLink);
-    setDriveLinks(projects[index].driveLinks);
-    setDeployedLink(projects[index].deployedLink);
+    setGithubLink(projects[index].links.github);
+    setDriveLinks(projects[index].links.images);
+    setDeployedLink(projects[index].links.website);
     setEditIndex(index);
   };
 
@@ -76,7 +76,6 @@ const ProjectForm = (props) => {
     const updatedProject = [...projects];
     updatedProject.splice(index, 1);
     setProjects(updatedProject);
-    console.log(projects.length);
   };
 
   const handleTitleChange = (e) => {
@@ -231,21 +230,6 @@ const ProjectForm = (props) => {
                       {Object.keys(item).map((key, index) => {
                         if (key === "links") {
                           return Object.keys(item[key]).map((itm, indx) => {
-                            if (itm === "images") {
-                              return Object.keys(item[key].itm).map(
-                                (ele, ind) => (
-                                  <Typography
-                                    variant="body2"
-                                    color="black"
-                                    key={ind}
-                                  >
-                                    {`${ele.toUpperCase()} : ${
-                                      item[key][itm][ele]
-                                    }`}
-                                  </Typography>
-                                )
-                              );
-                            }
                             return (
                               <Typography
                                 variant="body2"

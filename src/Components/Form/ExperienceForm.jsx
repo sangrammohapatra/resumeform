@@ -102,7 +102,6 @@ const ExperienceForm = (props) => {
     const updatedExperience = [...experience];
     updatedExperience.splice(index, 1);
     setExperience(updatedExperience);
-    console.log(experience.length);
   };
 
   const form3 = (

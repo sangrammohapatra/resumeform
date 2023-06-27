@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { TextField, Button, Grid, Box } from "@mui/material";
 import Styles from "./SkillsForm.module.css";
 import Chip from "@mui/material/Chip";
@@ -32,10 +32,6 @@ const options = [
 const SkillsForm = (props) => {
   const [skills, setSkills] = useState([]);
   const formData = [...skills];
-
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

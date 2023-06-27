@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { TextField, Button, Grid, Box } from "@mui/material";
 import Styles from "./BasicDetails.module.css";
 import {
@@ -97,6 +97,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
   };
 
   const deleteDetailsHandler = () => {
+    setBasicDetails(null)
     setFlag(true);
   };
 
