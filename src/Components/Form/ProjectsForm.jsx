@@ -61,13 +61,15 @@ const ProjectForm = (props) => {
       projects,
     };
     console.log("Final Data for Submit", resumeFromData);
+
     const data = await fetch("https://resume-buider-be.vercel.app/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ resume: resumeFromData }),
     });
-    console.log("BE", await data.json());
-    props.onSubmit();
+    const res = await data.json();
+    const userId = res.insertedId;
+    props.onSubmit(userId);
   };
 
   const editDetailsHandler = (index) => {

@@ -3,6 +3,7 @@
   height: auto;
   margin: auto;
   display: flex;
+  flex-wrap: wrap;
   text-align: center;
   justify-content: center;
   margin-top: 150px;

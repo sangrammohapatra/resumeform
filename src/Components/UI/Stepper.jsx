@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Typography, Stepper, Step, StepLabel } from "@mui/material";
+import { Button, Stepper, Step, StepLabel } from "@mui/material";
 import BasicDetailsForm from "../Form/BasicDetailsForm";
 import EducationForm from "../Form/EducationDetails";
 import SkillsForm from "../Form/SkillsForm";
@@ -32,13 +32,14 @@ const FormStepper = (props) => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleFormSubmit = async () => {
+  const handleFormSubmit = async (data) => {
     handleNext();
     try {
       console.log("Collected details:", resumeData);
     } catch (error) {
       console.log(error);
     }
+    props.showThankYou(data)
   };
 
   const getStepContent = (step) => {
@@ -99,18 +100,7 @@ const FormStepper = (props) => {
       </Stepper>
       <div>
         {activeStep === steps.length ? (
-          <div>
-            <Typography variant="h5" gutterBottom>
-              Form submitted successfully!
-            </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={props.showThankYou}
-            >
-              Submit
-            </Button>
-          </div>
+          <div></div>
         ) : (
           <div>
             {getStepContent(activeStep)}

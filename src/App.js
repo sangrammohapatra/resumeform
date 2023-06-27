@@ -12,6 +12,7 @@ import { Box } from "@mui/material";
 
 function App() {
   const [showThanks, setShowThanks] = useState(false);
+  const [id, setId] = useState();
   // const [isLoginFormVisible, setIsLoginFormVisible] = useState(true);
 
   // const handleSignInClick = () => {
@@ -21,7 +22,8 @@ function App() {
   // const handleLoginClick = () => {
   //   setIsLoginFormVisible(true);
   // };
-  const showThanksHandler = () => {
+  const showThanksHandler = (data) => {
+    setId(data);
     setShowThanks(true);
   };
   const closeThanksHandler = () => {
@@ -34,6 +36,7 @@ function App() {
       <FormStepper showThankYou={showThanksHandler} />
       {showThanks && (
         <ThankYou
+          id={id}
           showThankYou={showThanks}
           closeThankYou={closeThanksHandler}
         />
