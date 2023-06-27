@@ -54,12 +54,19 @@ const ProjectForm = (props) => {
 
     setFlag(false);
   };
-  const handleFinish = () => {
-    props.setResumeData({
+
+  const handleFinish = async () => {
+    const resumeFromData = {
       ...props.resumeData,
-      projects: projects,
+      projects,
+    };
+    console.log("Final Data for Submit", resumeFromData);
+    const data = await fetch("https://resume-buider-be.vercel.app/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ resume: resumeFromData }),
     });
-    console.log("Project Form Data:", projects);
+    console.log("BE", await data.json());
     props.onSubmit();
   };
 
