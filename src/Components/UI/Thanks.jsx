@@ -1,4 +1,4 @@
-import { Modal } from "@mui/material";
+import { Button, Modal } from "@mui/material";
 import Styles from "./Thanks.module.css";
 
 const ThankYou = (props) => {
@@ -8,11 +8,13 @@ const ThankYou = (props) => {
   return (
     <Modal open={props.showThankYou} onClose={props.closeThankYou}>
       <div className={Styles.thankYouContainer}>
-        <h2>Thank you for joining us!</h2>
-        <p>You can access your Portfolio website in the below link</p>
-        Your id is {props.id}
+        <h2 className={Styles.thankYou}>Thank you for joining us!</h2>
+        <span className={Styles.idContent}>Your id is {props.id}</span>
+        <span className={Styles.content}>
+          You can access your Portfolio website in the below link
+        </span>
         <a href={url} target="_blank" without={true} rel="noreferrer">
-          My Portfolio Website
+          <Button> My Portfolio Website</Button>
         </a>
       </div>
     </Modal>

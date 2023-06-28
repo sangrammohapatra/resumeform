@@ -1,18 +1,36 @@
 .thankYouContainer {
   width: 500px;
-  height: auto;
+  height: 300px;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
-  text-align: center;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-top: 150px;
-  margin-bottom: 150px;
   background-color: #f2f2f2;
   border-radius: 15px;
   padding: 20px;
   animation: popUp 1s;
   box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.thankYou {
+  margin: 20px;
+  font-size: 24px;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+.content {
+  font-size: 16px;
+  color: #666666;
+  margin-bottom: 20px;
+}
+.idContent {
+  font-size: 16px;
+  color: #666666;
+  margin-bottom: 20px;
 }
 
 @keyframes popUp {

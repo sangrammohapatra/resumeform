@@ -97,7 +97,7 @@ const BasicDetailsForm = ({ resumeData, setResumeData, onSubmit }) => {
   };
 
   const deleteDetailsHandler = () => {
-    setBasicDetails(null)
+    setBasicDetails(null);
     setFlag(true);
   };
 
